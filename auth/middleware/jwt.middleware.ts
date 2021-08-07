@@ -1,11 +1,15 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import debug from "debug";
 import { Jwt } from "../../common/types/jwt";
 import usersService from "../../users/services/users.service";
 
 // @ts-expect-error
 const jwtSecret: string = process.env.JWT_SECRET;
+const tokenExpirationInSeconds = 36000;
+
+const log: debug.IDebugger = debug("app:jwt.middleware");
 
 class JwtMiddleware {
   verifyRefreshBodyField(

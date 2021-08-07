@@ -38,7 +38,7 @@ const debug_1 = __importDefault(require("debug"));
 const helmet_1 = __importDefault(require("helmet"));
 const app = express_1.default();
 const server = http.createServer(app);
-const port = 3000;
+const port = 3001;
 const routes = [];
 const debugLog = debug_1.default("app");
 app.use(express_1.default.json());

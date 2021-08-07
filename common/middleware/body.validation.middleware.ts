@@ -8,8 +8,9 @@ class BodyValidationMiddleware {
     next: express.NextFunction
   ) {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-      return res.status(400).send({ errors: errors.array() });
+      return res.status(400).send({ errors: errors.array(), body: req.body });
     }
     next();
   }

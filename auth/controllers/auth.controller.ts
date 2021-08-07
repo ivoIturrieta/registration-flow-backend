@@ -2,6 +2,7 @@ import express from "express";
 import debug from "debug";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import usersService from "../../users/services/users.service";
 
 const log: debug.IDebugger = debug("app:auth-controller");
 
@@ -22,7 +23,12 @@ class AuthController {
       const token = jwt.sign(req.body, jwtSecret, {
         expiresIn: tokenExpirationInSeconds
       });
-      return res.status(201).send({ accessToken: token, refreshToken: hash });
+      const user: any = await usersService.getUserByEmailWithPassword(
+        req.body.email
+      );
+      return res
+        .status(201)
+        .send({ accessToken: token, refreshToken: hash, name: user.name });
     } catch (err) {
       log("createJWT error: %O", err);
       return res.status(500).send();
