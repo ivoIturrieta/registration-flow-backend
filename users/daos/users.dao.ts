@@ -13,10 +13,7 @@ class UsersDao {
       _id: String,
       email: String,
       password: { type: String, select: false },
-      firstName: String,
-      lastName: String,
       name: String,
-      permissionFlags: Number
     },
     { id: false }
   );
@@ -45,14 +42,6 @@ class UsersDao {
     return this.User.findOne({ email: email })
       .select("_id email name +password")
       .exec();
-  }
-
-  async removeUserById(userId: string) {
-    return this.User.deleteOne({ _id: userId }).exec();
-  }
-
-  async getUserById(userId: string) {
-    return this.User.findOne({ _id: userId }).populate("User").exec();
   }
 }
 
